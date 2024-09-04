@@ -3,6 +3,7 @@ export interface DropdownProps {
 	options: Options[];
 	value: string;
 	onChange: (value: string) => void;
+	appendShortCode?: boolean;
 }
 
 export interface Options {

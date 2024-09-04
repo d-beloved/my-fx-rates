@@ -37,9 +37,9 @@ function App() {
 		from ? setConvertFrom(value) : setConvertTo(value);
 	};
 
-	const onSubmit = () => {
-		// const exchangeRate = getExchangeRate();
-		console.log("exchangeRate");
+	const onSubmit = async () => {
+		const exchangeRate = await getExchangeRate(convertFrom, convertTo);
+		console.log("exchangeRate", exchangeRate);
 	};
 
 	return (
@@ -63,6 +63,7 @@ function App() {
 							onCurrencyChange(value, true);
 						}}
 						value={convertFrom}
+						appendShortCode
 					/>
 				</div>
 			</div>
@@ -84,6 +85,7 @@ function App() {
 							onCurrencyChange(value, false);
 						}}
 						value={convertTo}
+						appendShortCode
 					/>
 				</div>
 			</div>
