@@ -9,9 +9,13 @@ const Dropdown: React.FC<DropdownProps> = ({
 	appendShortCode = false,
 }) => {
 	return (
-		<div>
-			<label>{label}</label>
-			<select value={value} onChange={(e) => onChange(e.target.value)}>
+		<div className="flex flex-col">
+			<label className="mb-2">{label}</label>
+			<select
+				value={value}
+				onChange={(e) => onChange(e.target.value)}
+				className="p-2"
+			>
 				{options.map((option, index) => {
 					const { value, label } = option;
 					return (
@@ -19,6 +23,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 							key={value}
 							value={value}
 							disabled={index === 0}
+							className="p-2"
 						>
 							{label}{" "}
 							{appendShortCode &&
