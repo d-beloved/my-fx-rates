@@ -32,7 +32,7 @@ To install and run the app locally, follow the steps below:
 2. Install dependencies:
 
     ```bash
-    npm install
+    yarn install
     ```
 
 3. Create a `.env.local` file and add your [AlphaVantage API Key](https://www.alphavantage.co/support/#api-key) as follows:
@@ -44,7 +44,7 @@ To install and run the app locally, follow the steps below:
 4. Run the app:
 
     ```bash
-    npm start
+    yarn dev
     ```
 
 5. Open your browser and visit `http://localhost:5173` to see the app running.
