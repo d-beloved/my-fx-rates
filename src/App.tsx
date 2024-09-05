@@ -44,6 +44,19 @@ const App: React.FC = () => {
 					className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
 				/>
 			</div>
+			<footer className="text-center text-sm text-gray-500">
+				<p>
+					&copy; 2024{" "}
+					<a
+						className="hover:underline"
+						href="https://github.com/d-beloved/my-fx-rates"
+						target="_blank"
+						rel="noreferrer"
+					>
+						D-Beloved.{" "}
+					</a>
+				</p>
+			</footer>
 		</div>
 	);
 };
