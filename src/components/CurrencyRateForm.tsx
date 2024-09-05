@@ -49,10 +49,8 @@ const CurrencyRateForm = () => {
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
-		console.log("submit", convertFrom, convertTo);
 		const rates = await getExchangeRate(convertFrom, convertTo);
 		if (rates) {
-			console.log("rates", rates);
 			rates.error ? setError(rates.error) : setResult(rates.data);
 			setLoading(false);
 		}
@@ -69,8 +67,6 @@ const CurrencyRateForm = () => {
 		setResult(null);
 		setError(null);
 	};
-
-	console.log("ce", [result, error]);
 
 	return (
 		<form className="w-full flex flex-col items-center gap-2 sm:gap-4 rounded-xl border-2 border-themeDarkBlur p-8 pt-4 mt-4 mb-8 ml-4 sm:ml-0 drop-shadow-xl shadow-xl">
