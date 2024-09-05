@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { digitalCurrencies, physicalCurrencies } from "../lib/currencyData";
-import { errorProps, exchangeRateProps, Option } from "../lib/definitions";
+import { exchangeRateProps, Option } from "../lib/definitions";
 import { getExchangeRate } from "../lib/api";
 import CurrencyInput from "./CurrencyInput";
 import exchangeArrow from "../assets/arrow.svg";
 import info from "../assets/info.svg";
+import loader from "../assets/loader.svg";
 
 const CurrencyRateForm = () => {
 	const [convertFrom, setConvertFrom] = useState("");
@@ -15,7 +16,7 @@ const CurrencyRateForm = () => {
 	const [convertToOptions, setConvertToOptions] = useState<Option[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState<exchangeRateProps | null>();
-	const [error, setError] = useState<errorProps | null>();
+	const [error, setError] = useState<string | null>();
 
 	const currencyTypeChange = (type: string, from: boolean) => {
 		setResult(null);
@@ -23,15 +24,19 @@ const CurrencyRateForm = () => {
 		if (type === "fiat") {
 			from
 				? (setConvertFromType(type),
-					setConvertFromOptions(physicalCurrencies))
+					setConvertFromOptions(physicalCurrencies),
+					setConvertFrom(physicalCurrencies[0].value))
 				: (setConvertToType(type),
-					setConvertToOptions(physicalCurrencies));
+					setConvertToOptions(physicalCurrencies),
+					setConvertTo(physicalCurrencies[0].value));
 		} else {
 			from
 				? (setConvertFromType(type),
-					setConvertFromOptions(digitalCurrencies))
+					setConvertFromOptions(digitalCurrencies),
+					setConvertFrom(digitalCurrencies[0].value))
 				: (setConvertToType(type),
-					setConvertToOptions(digitalCurrencies));
+					setConvertToOptions(digitalCurrencies),
+					setConvertTo(digitalCurrencies[0].value));
 		}
 	};
 
@@ -41,15 +46,20 @@ const CurrencyRateForm = () => {
 		from ? setConvertFrom(value) : setConvertTo(value);
 	};
 
-	const onSubmit = async () => {
+	const onSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
 		setLoading(true);
 		console.log("submit", convertFrom, convertTo);
-		// const exchangeRate = await getExchangeRate(convertFrom, convertTo);
-		// setLoading(false);
-		// console.log("exchangeRate", exchangeRate);
+		const rates = await getExchangeRate(convertFrom, convertTo);
+		if (rates) {
+			console.log("rates", rates);
+			rates.error ? setError(rates.error) : setResult(rates.data);
+			setLoading(false);
+		}
 	};
 
-	const onReset = () => {
+	const onReset = (e: React.FormEvent) => {
+		e.preventDefault();
 		setConvertFrom("");
 		setConvertTo("");
 		setConvertFromType("");
@@ -59,6 +69,8 @@ const CurrencyRateForm = () => {
 		setResult(null);
 		setError(null);
 	};
+
+	console.log("ce", [result, error]);
 
 	return (
 		<form className="w-full flex flex-col items-center gap-2 sm:gap-4 rounded-xl border-2 border-themeDarkBlur p-8 pt-4 mt-4 mb-8 ml-4 sm:ml-0 drop-shadow-xl shadow-xl">
@@ -89,16 +101,24 @@ const CurrencyRateForm = () => {
 			<div className=" flex gap-7 mt-4">
 				<button
 					className="min-w-28 rounded-md bg-theme px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-75 disabled:bg-gray-400"
-					onClick={onSubmit}
+					onClick={(e) => onSubmit(e)}
 					disabled={
 						convertFrom.length === 0 || convertTo.length === 0
 					}
 				>
-					{loading ? "Loading..." : "Check Rate"}
+					{loading ? (
+						<img
+							className="w-6 mx-auto"
+							src={loader}
+							alt="loading"
+						/>
+					) : (
+						"Check Rate"
+					)}
 				</button>
 				<button
 					className="rounded-md bg-red-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:opacity-75 disabled:bg-gray-400"
-					onClick={onReset}
+					onClick={(e) => onReset(e)}
 					disabled={
 						convertFrom.length === 0 || convertTo.length === 0
 					}
@@ -106,16 +126,20 @@ const CurrencyRateForm = () => {
 					Reset
 				</button>
 			</div>
-			{/* {result && ( */}
-			<div className="flex flex-col sm:flex-row items-start gap-3 sm:justify-between mt-4 w-full">
-				<p className="text-xl text-theme font-bold">Rate: </p>
-				<p className="text-xl text-green-600 font-bold">Bid: </p>
-				<p className="text-xl text-red-600 font-bold">Ask: </p>
-			</div>
-			{/* )} */}
-			{error && (
-				<p className="text-red-600 font-bold">{error.errorMessage}</p>
+			{result && (
+				<div className="flex flex-col sm:flex-row items-center gap-3 sm:justify-between mt-4 w-full">
+					<p className="text-xl text-theme font-bold">
+						Rate: {result.rate}{" "}
+					</p>
+					<p className="text-xl text-green-600 font-bold">
+						Bid: {result.bidPrice}{" "}
+					</p>
+					<p className="text-xl text-red-600 font-bold">
+						Ask: {result.askPrice}{" "}
+					</p>
+				</div>
 			)}
+			{error && <p className="text-red-600 font-bold">{error}</p>}
 		</form>
 	);
 };

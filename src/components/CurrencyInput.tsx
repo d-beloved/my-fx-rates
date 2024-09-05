@@ -22,15 +22,17 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
 						currencyTypeChange(value, from);
 					}}
 				/>
-				<Dropdown
-					label="Currency"
-					options={currencyOptions}
-					onChange={(value) => {
-						onCurrencyChange(value, from);
-					}}
-					value={currency}
-					appendShortCode
-				/>
+				{currencyOptions.length > 0 && (
+					<Dropdown
+						label="Currency"
+						options={currencyOptions}
+						onChange={(value) => {
+							onCurrencyChange(value, from);
+						}}
+						value={currency}
+						appendShortCode
+					/>
+				)}
 			</div>
 		</div>
 	);

@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import CurrencyRateForm from "./components/CurrencyRateForm";
 import currencyLogo from "./assets/currency.svg";
 
