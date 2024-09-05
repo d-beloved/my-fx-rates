@@ -61,13 +61,12 @@ const CurrencyRateForm = () => {
 	};
 
 	return (
-		<form className="flex flex-col items-center gap-4 rounded-xl border-2 border-themeDarkBlur p-8 pt-4 mt-4 drop-shadow-xl shadow-xl">
-			<p className="flex items-center justify-center mb-2 italic">
-				<span className="mr-2 w-7">
+		<form className="w-full flex flex-col items-center gap-2 sm:gap-4 rounded-xl border-2 border-themeDarkBlur p-8 pt-4 mt-4 mb-8 ml-4 sm:ml-0 drop-shadow-xl shadow-xl">
+			<p className="flex items-center justify-center mb-2 italic text-xs sm:text-base w-full">
+				<span className="mr-0 sm:mr-2 w-5 sm:w-7">
 					<img src={info} alt="information" />
 				</span>
-				Select the currency type in order to pick the currency to
-				convert.
+				Select the currency type then pick the currency to convert.
 			</p>
 			<CurrencyInput
 				currency={convertFrom}
@@ -77,7 +76,7 @@ const CurrencyRateForm = () => {
 				currencyTypeChange={currencyTypeChange}
 				from
 			/>
-			<div className="my-3 w-14">
+			<div className="my-3 w-10 sm:w-14">
 				<img src={exchangeArrow} alt="Exchange Arrow" />
 			</div>
 			<CurrencyInput
@@ -108,7 +107,7 @@ const CurrencyRateForm = () => {
 				</button>
 			</div>
 			{/* {result && ( */}
-			<div className="flex flex-row justify-between mt-4 w-full">
+			<div className="flex flex-col sm:flex-row items-start gap-3 sm:justify-between mt-4 w-full">
 				<p className="text-xl text-theme font-bold">Rate: </p>
 				<p className="text-xl text-green-600 font-bold">Bid: </p>
 				<p className="text-xl text-red-600 font-bold">Ask: </p>

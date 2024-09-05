@@ -9,7 +9,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 	appendShortCode = false,
 }) => {
 	return (
-		<div className="flex flex-col items-start w-72">
+		<div className="flex flex-col flex-wrap items-start w-72">
 			<label className="block text-sm font-medium text-gray-700 mb-1">
 				{label}
 			</label>
@@ -25,7 +25,6 @@ const Dropdown: React.FC<DropdownProps> = ({
 							key={value}
 							value={value}
 							disabled={index === 0}
-							className="w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
 						>
 							{label}{" "}
 							{appendShortCode &&

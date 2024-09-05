@@ -5,10 +5,10 @@ import currencyLogo from "./assets/currency.svg";
 
 const App: React.FC = () => {
 	return (
-		<div className="relative w-full h-full">
+		<div className="relative w-full h-full mx-auto text-center">
 			<div
 				aria-hidden="true"
-				className="w-8/12 absolute inset-0 top-2 mx-auto -z-50 blur-lg "
+				className="sm:w-8/12 w-full absolute inset-5 sm:inset-0 top-auto sm:top-2 mx-auto -z-50 blur-lg "
 			>
 				<img src={currencyLogo} className="w-full" alt="XChangeRate" />
 			</div>
@@ -24,11 +24,11 @@ const App: React.FC = () => {
 					className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
 				/>
 			</div>
-			<div className="flex flex-col items-center gap-4 mx-auto max-w-2xl pt-24">
-				<h1 className="text-5xl font-bold text-theme">
+			<div className="flex flex-col justify-center items-center gap-2 sm:gap-4 mx-auto max-w-2xl sm:pt-24 pt-10">
+				<h1 className="text-3xl sm:text-5xl font-bold text-theme">
 					Get Realtime Exchange Rate
 				</h1>
-				<p className="text-themeDark font-bold text-xl">
+				<p className="text-themeDark font-bold text-lg sm:text-xl">
 					Pick the Currencies You Wish to Compare Below
 				</p>
 				<CurrencyRateForm />

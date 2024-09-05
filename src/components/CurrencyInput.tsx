@@ -12,8 +12,8 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
 	onCurrencyChange,
 }) => {
 	return (
-		<div className="">
-			<div className="flex gap-4">
+		<div>
+			<div className="flex sm:flex-row flex-col gap-4">
 				<Dropdown
 					label="Currency Type"
 					options={currencyTypes}
